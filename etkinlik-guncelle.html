@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <title>Etkinlik Güncelle</title>
+</head>
+<body>
+    <!-- Başlık ve Menü[cite: 4] -->
+    <h1>Etkinlik Güncelle</h1>
+    <nav>
+        <a href="index.html">Ana Sayfa</a> 
+        <a href="index.html">Liste</a> 
+        <a href="etkinlik-ekle.html">Ekle</a> 
+        <a href="etkinlik-guncelle.html">Güncelle</a>
+    </nav>
+
+    <br>
+
+    <!-- Veri Güncelleme Formu (Value değerleri dolu)[cite: 4] -->
+    <form action="#" method="POST">
+        <div>
+            <label for="etkinlikAdi">Etkinlik Adı</label><br>
+            <input type="text" id="etkinlikAdi" name="etkinlikAdi" value="Kariyer Günleri" required>
+        </div>
+        <br>
+        
+        <div>
+            <label for="kategori">Kategori</label><br>
+            <select id="kategori" name="kategori" required>
+                <option value="Seminer" selected>Seminer</option>
+                <option value="Atölye">Atölye</option>
+            </select>
+        </div>
+        <br>
+        
+        <div>
+            <label for="tarih">Tarih</label><br>
+            <!-- Value her zaman YYYY-MM-DD formatında girilmelidir[cite: 4] -->
+            <input type="date" id="tarih" name="tarih" value="2026-10-12" required>
+        </div>
+        <br>
+        
+        <div>
+            <label for="aciklama">Açıklama</label><br>
+            <!-- Textarea etiketinde value kullanılmaz, yazı iki etiket arasına yazılır[cite: 4] -->
+            <textarea id="aciklama" name="aciklama" rows="4" required>Mezun söyleşileri</textarea>
+        </div>
+        <br>
+        
+        <button type="submit">Güncelle</button>
+    </form>
+</body>
+</html>
