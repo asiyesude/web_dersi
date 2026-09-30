@@ -1,0 +1,103 @@
+/* Asiye Sude Ceylan 2321032051 */
+:root {
+  --no: 2321032051;
+  --ton: mod(var(--no), 360);
+  --renk-ana: hsl(var(--ton) 65% 38%);
+  --renk-zemin: hsl(var(--ton) 30% 97%);
+  --font: Verdana, sans-serif;
+  --bosluk-m: 1rem; 
+  --kose: 8px;
+}
+
+body { 
+  font-family: var(--font); 
+  background-color: var(--renk-zemin); 
+}
+/* Mobil Görünüm (Öncelikli) - Tek Sütun */
+.kart-izgarasi {
+    display: grid;
+    grid-template-columns: 1fr; /* Telefonda tam genişlikte tek sütun yapar */
+    gap: var(--bosluk-m); /* Kartlar arasına boşluk bırakır */
+    margin-top: 20px;
+}
+
+.kart {
+    background-color: white;
+    border: 2px solid var(--renk-ana); /* Senin numarana özel hesaplanan rengi kullanır */
+    border-radius: var(--kose);
+    padding: var(--bosluk-m);
+}
+
+.kart h3 {
+    margin-top: 0;
+    color: var(--renk-ana);
+}
+
+/* Geniş Ekran Görünümü (Masaüstü) - Yan Yana Sütunlar */
+@media (min-width: 768px) {
+    .kart-izgarasi {
+        /* Ekrana sığabildiği kadar kartı otomatik yan yana dizer */
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+    }
+}
+/* Form Tasarımları */
+form {
+    background-color: white;
+    padding: var(--bosluk-m);
+    border: 2px solid var(--renk-ana);
+    border-radius: var(--kose);
+    max-width: 500px;
+    margin-top: 20px;
+}
+
+label {
+    display: block; /* Etiketleri kutuların tam üstüne alır */
+    margin-top: 15px;
+    font-weight: bold;
+    color: var(--renk-ana);
+}
+
+input, select, textarea {
+    width: 100%; /* Kutuları tam genişliğe yayar */
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+/* Boş bırakılan zorunlu alanlar kırmızı olur */
+input:invalid, select:invalid, textarea:invalid {
+    border: 2px solid red;
+    background-color: #ffe6e6;
+}
+/* Detay Sayfası Görünümü */
+.detay-karti {
+    display: flex;
+    flex-direction: column; /* Telefonda alt alta dizer */
+    gap: 20px;
+    background-color: white;
+    padding: var(--bosluk-m);
+    border: 2px solid var(--renk-ana);
+    border-radius: var(--kose);
+}
+
+.afis img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--kose);
+}
+
+/* Geniş Ekranda Afiş Solda, Yazılar Sağda */
+@media (min-width: 768px) {
+    .detay-karti {
+        flex-direction: row; /* Masaüstünde yan yana dizer */
+        align-items: flex-start;
+    }
+    .afis {
+        flex: 1; /* Afiş kısmı 1 birim yer kaplar */
+    }
+    .kunye {
+        flex: 2; /* Yazı kısmı 2 birim yer kaplar */
+    }
+}
