@@ -9,13 +9,15 @@ const urlId = new URLSearchParams(location.search).get("id");
 const event = events.find(e => e.id === urlId);
 
 if (!event) {
+    document.title = "Etkinlik bulunamadı";
     container.innerHTML = `
-        <div style="border: 2px solid red; padding: 20px; color: red; margin-bottom: 20px; border-radius: 5px;">
-            <p>"${urlId || 'Boş'}" numaralı bir etkinlik yok. Lütfen listeden geçerli bir etkinlik seçin.</p>
+        <div style="border: 1px solid #d9534f; background-color: #f9f2f2; color: #d9534f; padding: 20px; border-radius: 5px; margin-bottom: 20px;">
+            <p style="margin: 0;">"${urlId || 'Boş'}" numaralı bir etkinlik yok. Listeden bir etkinlik seçin.</p>
         </div>
-        <a href="etkinlikler.html">&larr; Listeye dön</a>
+        <a href="etkinlikler.html" style="background-color: #2b7a2b; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">&larr; Listeye dön</a>
     `;
 } else {
+    // ... alt taraftaki mevcut else kodların aynen kalacak
     document.title = event.title;
     
     const [gun, ay, yil] = event.date.split("-");

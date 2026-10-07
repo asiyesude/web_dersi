@@ -19,36 +19,41 @@
     <br>
 
     <!-- Veri Ekleme Formu[cite: 4] -->
-    <form action="#" method="POST">
+    <form id="etkinlik-formu">
         <div>
-            <label for="etkinlikAdi">Etkinlik Adı</label><br>
-            <input type="text" id="etkinlikAdi" name="etkinlikAdi" required>
+            <label>Etkinlik Adı *</label>
+            <input type="text" name="title" required>
         </div>
-        <br>
-        
         <div>
-            <label for="kategori">Kategori</label><br>
-            <select id="kategori" name="kategori" required>
+            <label>Kategori *</label>
+            <select name="category" required>
+                <option value="">Seçiniz</option>
                 <option value="Seminer">Seminer</option>
                 <option value="Atölye">Atölye</option>
+                <option value="Söyleşi">Söyleşi</option>
             </select>
         </div>
-        <br>
-        
         <div>
-            <label for="tarih">Tarih</label><br>
-            <!-- gg.aa.yyyy formatını tarayıcı type="date" ile otomatik sağlar[cite: 4] -->
-            <input type="date" id="tarih" name="tarih" required> 
+            <label>Tarih *</label>
+            <input type="date" name="date" required>
         </div>
-        <br>
-        
         <div>
-            <label for="aciklama">Açıklama</label><br>
-            <textarea id="aciklama" name="aciklama" rows="4" required></textarea>
+            <label>Saat *</label>
+            <input type="time" name="time" required>
         </div>
-        <br>
-        
-        <button type="submit">Kaydet</button>
+        <div>
+            <label>Yer *</label>
+            <input type="text" name="location" placeholder="Örn. A Blok Konferans Salonu" required>
+        </div>
+        <div>
+            <label>Kontenjan</label>
+            <input type="number" name="capacity">
+        </div>
+        <div>
+            <label>Açıklama</label>
+            <textarea name="description"></textarea>
+        </div>
+        <button type="submit" style="margin-top: 15px; padding: 10px 20px; background-color: #2b7a2b; color: white; border: none; border-radius: 5px; cursor: pointer;">Kaydet</button>
     </form>
 </body>
 </html>
