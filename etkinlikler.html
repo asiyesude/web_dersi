@@ -20,7 +20,20 @@
     <br>
 
     <!-- Tablo yerine yeni kart ızgarası yapısı -->
-    <section id="etkinlik-listesi" class="kart-izgarasi" data-limit="2"></section>
+     <form id="filtre-formu" class="filtre">
+        <div>
+            <label for="arama">Etkinlik ara</label>
+            <input type="search" id="arama">
+        </div>
+        <div>
+            <label for="kategori-filtre">Kategori</label>
+            <select id="kategori-filtre">
+                <option value="">Tümü</option>
+            </select>
+        </div>
+    </form>
+    <p id="sonuc"></p>
+    <section id="etkinlik-listesi" class="kart-izgarasi"></section>
 
     <br>
 

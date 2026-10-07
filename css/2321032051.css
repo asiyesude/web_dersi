@@ -101,3 +101,31 @@ input:invalid, select:invalid, textarea:invalid {
         flex: 2; /* Yazı kısmı 2 birim yer kaplar */
     }
 }
+/* Filtre Formu Tasarımı */
+.filtre {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    background-color: white;
+    padding: var(--bosluk-m);
+    border: 2px solid var(--renk-ana);
+    border-radius: var(--kose);
+    margin-bottom: 10px;
+}
+
+.filtre label {
+    margin-top: 0;
+}
+
+#sonuc {
+    font-weight: bold;
+    color: var(--renk-ana);
+    margin-bottom: 20px;
+}
+
+/* Geniş Ekranda Yan Yana */
+@media (min-width: 768px) {
+    .filtre {
+        grid-template-columns: 1fr 1fr; 
+    }
+}
