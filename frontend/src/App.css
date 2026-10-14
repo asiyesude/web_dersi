@@ -1,0 +1,101 @@
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+body {
+  margin: 0;
+  background-color: #f8f9fa;
+  color: #333;
+}
+
+h1 {
+  background-color: #27ae60;
+  color: white;
+  margin: 0;
+  padding: 20px 30px 10px 30px;
+  font-size: 28px;
+}
+
+nav {
+  background-color: #27ae60;
+  padding: 0 30px 20px 30px;
+  display: flex;
+  gap: 15px;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+nav a[aria-current="page"] {
+  background-color: white;
+  color: #27ae60;
+}
+
+main {
+  padding: 30px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.kart-izgarasi {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+article {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #27ae60;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+article h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+button {
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #219653;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  border-top: 1px solid #eee;
+  margin-top: 40px;
+}
