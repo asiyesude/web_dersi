@@ -1,0 +1,251 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Open+Sans:wght@400;600&display=swap');
+
+:root {
+  --renk-ana: #658c1a;
+  --renk-ana-koyu: #507014;
+  --renk-hata: #d32f2f;
+  --arkaplan: #f9faec;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--arkaplan);
+  font-family: 'Open Sans', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
+/* Tüm başlıkların yazı tipini (Serif) yapıyoruz */
+h1, h2, h3, h4 {
+  font-family: 'Merriweather', Georgia, 'Times New Roman', Times, serif;
+}
+
+/* Kutu sınırlandırmasını kaldırdık, artık tam ekran */
+.uygulama {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* GENEL LİNK (BAĞLANTI) TASARIMI */
+a {
+  color: var(--renk-ana);
+  text-decoration: underline;
+}
+a:hover {
+  color: var(--renk-ana-koyu);
+}
+
+/* HEADER TASARIMI */
+header {
+  background-color: var(--renk-ana);
+  color: white;
+  padding: 30px 20px 10px 20px;
+}
+.header-icerik {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+header h1 {
+  margin: 0 0 8px 0;
+  font-size: 2.2rem;
+}
+header p {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+/* MENÜ TASARIMI */
+nav {
+  background-color: var(--renk-ana);
+  padding: 0 20px 20px 20px;
+}
+.nav-icerik {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: flex;
+  gap: 15px;
+}
+nav a {
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+}
+nav a.active, nav a[aria-current="page"] {
+  background-color: white;
+  color: var(--renk-ana);
+  font-weight: bold;
+}
+
+/* İÇERİK ALANI */
+.icerik {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bolum-baslik {
+  font-size: 1.5rem;
+  color: #222;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+/* ETKİNLİK KARTLARI */
+.kart-izgarasi {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.kart {
+  background: white;
+  padding: 25px;
+  border-radius: 6px;
+  border: 1px solid #e5e5e5;
+  border-top: 4px solid var(--renk-ana);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+}
+
+.kart h3 {
+  margin: 0 0 15px 0;
+  color: #222;
+  font-size: 1.2rem;
+}
+
+.kategori-rozet {
+  background-color: #f0f7f0;
+  color: var(--renk-ana);
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.kart p {
+  margin: 8px 0;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.detay-link {
+  display: inline-block;
+  margin-top: 15px;
+  color: var(--renk-ana);
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* FİLTRELEME ALANI */
+.filtreler {
+  background: white;
+  padding: 20px;
+  border-radius: 6px;
+  border: none;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  display: flex;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+.filtre-grubu {
+  flex: 1;
+}
+.filtre-grubu label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 0.95rem;
+  color: #333;
+}
+.filtre-grubu input, .filtre-grubu select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+.sonuc-metni {
+  color: var(--renk-ana);
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* BUTONLAR */
+.buton {
+  background-color: var(--renk-ana);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: none;
+  display: inline-block;
+}
+.buton:hover {
+  background-color: var(--renk-ana-koyu);
+}
+.buton-sil {
+  background-color: var(--renk-hata);
+}
+
+/* TABLO */
+.tablo {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  margin-top: 15px;
+}
+.tablo th {
+  background: var(--renk-ana);
+  color: #fff;
+  padding: 12px;
+  text-align: left;
+}
+.tablo td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+}
+.islemler {
+  display: flex;
+  gap: 8px;
+}
+
+/* FORMLAR (Giriş/Kayıt) */
+form div {
+  margin-bottom: 15px;
+}
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+form input, form select, form textarea {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.hata-metni {
+  color: var(--renk-hata);
+  font-size: 0.85rem;
+  margin-top: 5px;
+  display: block;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  border-top: 1px solid #ddd;
+  margin-top: auto;
+}

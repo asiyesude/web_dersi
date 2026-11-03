@@ -1,1 +1,0 @@
-export type PageName = "home" | "events" | "add" | "update" | "detail";

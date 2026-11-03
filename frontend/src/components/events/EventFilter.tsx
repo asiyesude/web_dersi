@@ -1,31 +1,39 @@
 import type { Category } from "../../types/campus-event";
 
 interface EventFilterProps {
-  searchText: string;
-  category: Category | "";
   categories: Category[];
+  selectedCategory: Category | "";
+  onCategoryChange: (category: Category | "") => void;
+  searchText: string;
   onSearchChange: (text: string) => void;
-  onCategoryChange: (cat: Category | "") => void;
 }
 
-export default function EventFilter({ searchText, category, categories, onSearchChange, onCategoryChange }: EventFilterProps) {
+export default function EventFilter({
+  categories, selectedCategory, onCategoryChange, searchText, onSearchChange,
+}: EventFilterProps) {
   return (
-    <div>
-      <input
-        type="search"
-        placeholder="Etkinlik ara..."
-        value={searchText}
-        onChange={(e) => onSearchChange(e.target.value)}
-      />
-      <select
-        value={category}
-        onChange={(e) => onCategoryChange(e.target.value as Category | "")}
-      >
-        <option value="">Tümü</option>
-        {categories.map((c) => (
-          <option key={c} value={c}>{c}</option>
-        ))}
-      </select>
+    <div className="filtreler">
+      <div className="filtre-grubu">
+        <label>Etkinlik ara</label>
+        <input
+          type="text"
+          placeholder="Örn. atölye, kariyer"
+          value={searchText}
+          onChange={(e) => onSearchChange(e.target.value)}
+        />
+      </div>
+      <div className="filtre-grubu">
+        <label>Kategori</label>
+        <select
+          value={selectedCategory}
+          onChange={(e) => onCategoryChange(e.target.value as Category | "")}
+        >
+          <option value="">Tümü</option>
+          {categories.map((cat) => (
+            <option key={cat} value={cat}>{cat}</option>
+          ))}
+        </select>
+      </div>
     </div>
   );
 }
