@@ -19,5 +19,8 @@ app.use("/events", eventRoutes);
 app.use((req, res) => { // eşleşme yoksa
   res.status(404).json({ error: { message: "Route not found" } });
 });
-
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).json({ error: { message: "Internal server error" } });
+});
 export default app;

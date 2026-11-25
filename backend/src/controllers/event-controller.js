@@ -1,61 +1,102 @@
+import mongoose from "mongoose";
 import { Event } from "../models/event-model.js";
+import { todayStart } from "../utils/date.js";
 
-// 1. Tüm etkinlikleri getir
-export const getAllEvents = async (req, res) => {
-  try {
-    const events = await Event.find(); 
-    res.status(200).json(events);
-  } catch (error) {
-    res.status(500).json({ message: "Veriler çekilirken hata oluştu", error: error.message });
-  }
-};
+const KORUNAN_ALANLAR = ["_id", "createdAt", "updatedAt", "__v"];
 
-// 2. ID'ye göre tek bir etkinlik getir (Hocanın testi için geçersiz ID'de 404 döner)
-export const getEventById = async (req, res) => {
+function notFound(res) {
+  return res.status(404).json({ error: { message: "Event not found" } });
+}
+
+// Adım 6: Arama (?search=), kategori (?category=) ve tarihe göre sıralı liste
+export async function getEvents(req, res, next) {
   try {
-    const { id } = req.params;
-    const event = await Event.findById(id); 
-    
-    if (!event) {
-      return res.status(404).json({ error: { message: "Event not found" } });
+    const { category, search } = req.query;
+    const filter = {};
+    if (category) filter.category = category;
+    if (search) {
+      // ( * ? gibi işaretler aramayı bozmasın
+      const guvenli = search.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      filter.title = { $regex: guvenli, $options: "i" };
     }
-    res.status(200).json(event);
-  } catch (error) {
-    // Geçersiz Mongoose ID formatı girilse bile 404 döner (testlerin kalmaması için kritik)
-    res.status(404).json({ error: { message: "Event not found" } });
+    const events = await Event.find(filter).sort({ date: 1 });
+    res.json(events);
+  } catch (err) {
+    next(err);
   }
-};
+}
 
-// 3. Yeni etkinlik ekle
-export const createEvent = async (req, res) => {
+// Adım 7: Bugün ve sonrası, en yakın önce
+export async function getUpcomingEvents(req, res, next) {
   try {
-    const newEvent = await Event.create(req.body);
-    res.status(201).json(newEvent);
-  } catch (error) {
-    res.status(400).json({ message: "Etkinlik eklenemedi", error: error.message });
+    const events = await Event
+      .find({ date: { $gte: todayStart() } }) // utils/date.js
+      .sort({ date: 1, time: 1 });
+    res.json(events);
+  } catch (err) {
+    next(err);
   }
-};
+}
 
-// 4. Etkinlik güncelle
-export const updateEvent = async (req, res) => {
+// Tek etkinlik getir (geçersiz veya olmayan id -> 404)
+export async function getEventById(req, res, next) {
   try {
-    const { id } = req.params;
-    const updatedEvent = await Event.findByIdAndUpdate(id, req.body, { new: true, runValidators: true });
-    if (!updatedEvent) return res.status(404).json({ message: "Etkinlik bulunamadı" });
-    res.status(200).json(updatedEvent);
-  } catch (error) {
-    res.status(400).json({ message: "Güncelleme hatası", error: error.message });
+    if (!mongoose.isValidObjectId(req.params.id)) return notFound(res);
+    const event = await Event.findById(req.params.id);
+    if (!event) return notFound(res);
+    res.json(event);
+  } catch (err) {
+    next(err);
   }
-};
+}
 
-// 5. Etkinlik sil
-export const deleteEvent = async (req, res) => {
+// Yeni etkinlik ekle (eksik veri veya yanlış tarih biçimi -> 400)
+export async function createEvent(req, res, next) {
   try {
-    const { id } = req.params;
-    const deletedEvent = await Event.findByIdAndDelete(id);
-    if (!deletedEvent) return res.status(404).json({ message: "Etkinlik bulunamadı" });
-    res.status(200).json({ message: "Etkinlik başarıyla silindi" });
-  } catch (error) {
-    res.status(500).json({ message: "Silme hatası", error: error.message });
+    const event = await Event.create(req.body);
+    res.status(201).json(event);
+  } catch (err) {
+    if (err.name === "ValidationError" || err.name === "CastError") {
+      return res.status(400).json({ error: { message: err.message } });
+    }
+    next(err);
   }
-};
+}
+
+// Adım 3: PATCH /events/:id - sadece gönderilen alanlar değişir
+export async function updateEvent(req, res, next) {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) return notFound(res);
+    const body = req.body ?? {};
+    if (Object.keys(body).length === 0) {
+      return res.status(400).json({ error: { message: "Body is empty" } });
+    }
+    const korunan = Object.keys(body).filter((k) => KORUNAN_ALANLAR.includes(k));
+    if (korunan.length > 0) {
+      return res.status(400).json({ error: { message: `${korunan.join(", ")} cannot be changed` } });
+    }
+    const event = await Event.findByIdAndUpdate(req.params.id, body, {
+      returnDocument: "after", // güncellenmiş kaydı döndür
+      runValidators: true, // schema kuralları burada da çalışsın
+    });
+    if (!event) return notFound(res);
+    res.json(event);
+  } catch (err) {
+    if (err.name === "ValidationError" || err.name === "CastError") {
+      return res.status(400).json({ error: { message: err.message } });
+    }
+    next(err);
+  }
+}
+
+// Adım 5: DELETE /events/:id - 204 gövdesiz yanıt
+export async function deleteEvent(req, res, next) {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) return notFound(res);
+    const event = await Event.findByIdAndDelete(req.params.id);
+    if (!event) return notFound(res); // ikinci silme de buraya
+    res.status(204).end();
+  } catch (err) {
+    next(err);
+  }
+}
