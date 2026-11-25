@@ -1,19 +1,19 @@
-import express from "express";
-import { 
-  getAllEvents, 
-  getEventById, 
-  createEvent, 
-  updateEvent, 
-  deleteEvent 
+import { Router } from "express";
+import {
+  createEvent,
+  deleteEvent,
+  getEventById,
+  getEvents,
+  getUpcomingEvents,
+  updateEvent,
 } from "../controllers/event-controller.js";
 
-const router = express.Router();
-
-// Yeni fonksiyon isimlerimizi rotalara bağlıyoruz
-router.get("/", getAllEvents);
+const router = Router();
+router.get("/", getEvents);
+router.get("/upcoming", getUpcomingEvents); // önce
 router.get("/:id", getEventById);
 router.post("/", createEvent);
-router.put("/:id", updateEvent);
+router.patch("/:id", updateEvent);
 router.delete("/:id", deleteEvent);
 
 export default router;
